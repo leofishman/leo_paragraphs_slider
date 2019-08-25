@@ -1,0 +1,9 @@
+name: 'leo_paragraphs_slider'
+type: module
+description: 'Provide a custom “slider” paragraph type.'
+core: 8.x
+package: 'Custom'
+dependencies:
+  - drupal:image
+  - paragraphs:paragraphs
+  - drupal:text

@@ -1,0 +1,13 @@
+{
+    "name": "leo_paragraphs_slider",
+    "type": "drupal-module",
+    "description": "Provide a custom “slider” paragraph type.",
+    "keywords": [
+    ],
+    "homepage": "https://www.drupal.org/project/leo_paragraphs_slider",
+    "minimum-stability": "dev",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/leo_paragraphs_slider",
+        "source": "http://cgit.drupalcode.org/leo_paragraphs_slider",
+    },
+}
