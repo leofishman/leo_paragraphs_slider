@@ -1,0 +1,15 @@
+leo_paragraph_slider:
+  version: 8.x
+  css:
+    base:
+      assets/css/slider.style.css: {}
+      assets/js/slick/slick/slick.css: {}
+      assets/js/slick/slick/slick-theme.css: {}
+      'https://fonts.googleapis.com/css?family=PT+Sans:400,700': { type: external }
+      'https://fonts.googleapis.com/css?family=Lato': { type: external }
+  js:
+    assets/js/slick/slick/slick.min.js: {}
+    'https://code.jquery.com/jquery-migrate-1.2.1.min.js': { type: external}
+  dependencies:
+    - core/jquery
+

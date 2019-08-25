@@ -23,13 +23,92 @@ function leo_paragraphs_slider_help($route_name, RouteMatchInterface $route_matc
   }
 }
 
+
 /**
- * Implements hook_theme().
+ * Implements hook_theme()
+ *
+ * Register a theme for each paragraph type
+ *
  */
-function leo_paragraphs_slider_theme() {
-  return [
-    'leo_paragraphs_slider' => [
-      'render element' => 'children',
-    ],
-  ];
+function leo_paragraphs_slider_theme($existing, $type, $theme, $path){
+    $theme_templates  = [];
+    $paragraph_types  = leo_paragraphs_slider_get_paragraph_types();
+
+    // Register custom Paragraph bundle templates
+    foreach ($paragraph_types as $paragraph_type){
+        $theme_templates['paragraph__leo_paragraphs_slider__' . $paragraph_type] = [
+            'base hook' => 'paragraph'
+        ];
+    }
+
+    // Register custom Paragraph bundle template fallback
+    $theme_templates['paragraph__leo_paragraphs_slider'] = [
+        'base hook' => 'paragraph'
+    ];
+
+    // Register custom Paragraph field wrapper
+    $theme_templates['field__paragraph__leo_paragraphs_slider__field_wrapper'] = [
+        'base hook' => 'field',
+    ];
+
+    return $theme_templates;
+}
+
+/**
+ * Implements HOOK_theme_suggestions_HOOK_alter
+ */
+function leo_paragraphs_slider_theme_suggestions_field_alter(array &$suggestions, array $variables, $hook) {
+    $field = $variables['element']['#field_name'];
+
+    if( $field == 'field_content_modules' ) {
+        $suggestions[] = 'field__paragraph__leo_paragraphs_slider__field_wrapper';
+    }
+}
+
+
+/**
+ * Implements HOOK_theme_suggestions_HOOK_alter
+ */
+function leo_paragraphs_slider_theme_suggestions_paragraph_alter(&$suggestions, $variables){
+    $entity              = $variables['elements']['#paragraph'];
+    $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+    $type                = $entity->getType();
+
+    $suggestions[] = 'paragraph__leo_paragraphs_slider';
+    $suggestions[] = 'paragraph__leo_paragraphs_slider__' . $type;
+    $suggestions[] = 'paragraph__leo_paragraphs_slider__' . $type . '__' . $sanitized_view_mode;
+}
+
+
+/**
+ * Implements hook_theme_registry_alter()
+ */
+function leo_paragraphs_slider_theme_registry_alter(&$theme_registry) {
+    $module_path      = drupal_get_path('module', 'leo_paragraphs_slider');
+    $template_objects = drupal_find_theme_templates($theme_registry, '.html.twig', $module_path);
+    $paragraph_types  = leo_paragraphs_slider_get_paragraph_types();
+
+    // 1. Loop through the paragraph types
+    // 2. Check if each paragraph exists in the `$template_objects` array
+    // 3. If it doesn't exist, remove it from the registry so we don't get any errors
+    // 4. If it does exist, set actual path to template
+    foreach ($paragraph_types as $type){
+        $template = 'paragraph__leo_paragraphs_slider__' . $type;
+        if(!isset($template_objects[$template])){
+            unset($theme_registry['paragraph__leo_paragraphs_slider__' . $type]);
+        } else {
+            $theme_registry['paragraph__leo_paragraphs_slider__' . $type]['path'] = $template_objects[$template]['path'];
+        }
+    }
+}
+
+
+/**
+ * Helper function to get a list of paragraph types by machine name
+ *
+ * @return array
+ */
+function leo_paragraphs_slider_get_paragraph_types(){
+    $paragraph_bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo('paragraph');
+    return array_keys($paragraph_bundles);
 }

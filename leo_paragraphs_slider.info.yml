@@ -3,6 +3,7 @@ type: module
 description: 'Provide a custom “slider” paragraph type.'
 core: 8.x
 package: 'Custom'
+version: 1.0
 dependencies:
   - drupal:image
   - paragraphs:paragraphs
