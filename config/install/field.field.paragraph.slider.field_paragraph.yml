@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_paragraph
+    - paragraphs.paragraphs_type.slider
+id: paragraph.slider.field_paragraph
+field_name: field_paragraph
+entity_type: paragraph
+bundle: slider
+label: Paragraph
+description: 'Description for the slide'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

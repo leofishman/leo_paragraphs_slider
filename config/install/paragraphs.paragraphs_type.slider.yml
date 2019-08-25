@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'file:file:0e884ef7-35f4-4c3d-b966-64fc9edf5161'
+id: slider
+label: slider
+icon_uuid: 0e884ef7-35f4-4c3d-b966-64fc9edf5161
+description: "Provide a custom “slider” paragraph type.\r\nSlides can be added to/removed from the slider as needed.\r\nMultiple sliders can occur on the same page.\r\nProvide a JSON endpoint at path “/node/{node}/slider” where slides can be queried per\r\nnode."
+behavior_plugins: {  }

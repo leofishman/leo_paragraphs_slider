@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_title
+    - paragraphs.paragraphs_type.slider
+  module:
+    - text
+id: paragraph.slider.field_title
+field_name: field_title
+entity_type: paragraph
+bundle: slider
+label: title
+description: "you should use a span with \"red-text\" class to format text, as in:\r\nReduce cost per hire by <span class=\"red-text\">up to 70%</span>"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text
