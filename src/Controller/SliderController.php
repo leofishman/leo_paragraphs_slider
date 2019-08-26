@@ -19,7 +19,6 @@ class sliderController extends ControllerBase {
     public function renderJsonApi( $nid) {
         return new JsonResponse([
             'data' =>is_numeric($nid)?$this->getResults($nid):'no slider found',
-            'method' => 'GET',
         ]);
     }
     /**
