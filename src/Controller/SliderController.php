@@ -26,12 +26,14 @@ class sliderController extends ControllerBase {
      * A helper function returning results.
      */
     private function getResults($nid) {
+
         $node = Node::load($nid);
-        $definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions('node', $node->getType());
-        $data = [];
-        foreach ($definitions as $paragraph) {
+        if (!empty($node)){
+            $definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions('node', $node->getType());
+            $data = [];
+            foreach ($definitions as $paragraph) {
                 if (
-                     $paragraph->getSetting('target_type')
+                    $paragraph->getSetting('target_type')
                     && $paragraph->getSetting('target_type') == 'paragraph'
                     && in_array('slider',$paragraph->getSettings()['handler_settings']['target_bundles'])
                 ) {
@@ -45,8 +47,10 @@ class sliderController extends ControllerBase {
 
                         $data[] = ["title" => $slider->get('field_title')->value, "image" => $path, "body" =>  $slider->get('field_paragraph')->value];
                     }
+                }
             }
         }
+
         return $data;
     }
 }
