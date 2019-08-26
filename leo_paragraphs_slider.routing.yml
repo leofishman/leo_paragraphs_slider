@@ -1,0 +1,7 @@
+leo_paragraphs_sliders.api_response:
+  path: '/node/{nid}/slider'
+  defaults:
+    _controller: '\Drupal\leo_paragraphs_slider\Controller\SliderController::renderJsonApi'
+    _title: 'My slider'
+  requirements:
+    _permission: 'access content'
